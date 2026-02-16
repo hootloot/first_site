@@ -32,6 +32,11 @@
       margin-bottom: 10px;
       text-align: left;
     }
+    hr {
+      border: none;
+      border-top: 1px solid #444;
+      margin: 25px 0;
+    }
     .container {
       max-width: 600px;
       width: 100%;
@@ -44,9 +49,6 @@
       text-align: left;
       margin-bottom: 20px;
     }
-    .header a {
-      font-size: 12px;
-    }
     .about-section {
       display: flex;
       gap: 20px;
@@ -56,14 +58,16 @@
     .photo {
       width: 120px;
       min-width: 120px;
-      height: 150px;
+      height: 160px;
       border: 1px solid #444;
       background-color: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 11px;
+      overflow: hidden;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .about-text {
       flex: 1;
@@ -87,6 +91,19 @@
       font-size: 13px;
       margin-top: 8px;
       text-align: left;
+    }
+    .details-img {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 10px;
+      border: 1px solid #444;
+      background-color: #333;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 11px;
     }
     .toggle {
       font-size: 12px;
@@ -114,25 +131,74 @@
   <div class="container">
     <div class="header">
       <h1>Ryan M. Kim</h1>
-      <a href="CV_RyanMKim.pdf">resume.pdf</a>
-      <div class="small">last updated: 2025</div>
     </div>
     
     <div class="about-section">
-      <div class="photo">[photo]</div>
+      <div class="photo"><img src="selfie.png" alt="personal_photo"></div>
       <div class="about-text">
-        Electrical and Computer Enginering sophmore at Northeastern, '28. Currently interested in new emerging computer architecture, from GPUs to Optical physics.
+        Electrical and Computer Enginering sophmore at Northeastern, '28. Currently interested in new emerging computer architecture, from from their applications in biology to machine learning systems. 
       </div>
     </div>
+
+    <hr>
+
+    <h2>projects</h2>
+
+    <div class="project">
+      <span class="project-title">Parallel Tiling Image Filters</span>
+      <span class="small">C++, POSIX Threads &middot; 2026</span>
+      <br>
+      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
+      <div class="details">
+        <p>Built a multithreaded image processing tool that splits images into tiles and applies convolution-based filters using a thread pool architecture. Supports grayscaling, thresholding, Gaussian blur, edge detection, and sharpening. Implements thread-safe task scheduling with POSIX mutexes and condition variables.</p>
+        <a href="https://github.com/ryanmkim/pthread_image_processing">github.com/ryanmkim/pthread_image_processing</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="project-title">WM-811K Wafer Defect Analysis Pipeline</span>
+      <span class="small">Python, Pandas, NumPy, SciPy &middot; 2025</span>
+      <br>
+      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
+      <div class="details">
+        <p>Developed a semiconductor defect analysis pipeline to process 172,000 wafer maps across 8 classes, utilizing SciPy for image interpolation and resizing to generate averaged probability heatmaps. Engineered an automated reporting system using Matplotlib and fpdf2 to visualize statistical trends and generate a 20-page defect "field guide."</p>
+        <a href="https://github.com/ryanmkim/wafer_analysis">github.com/ryanmkim/wafer_analysis</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <span class="project-title">Cryo-ET Influenza Virus Research</span>
+      <span class="small">scikit-learn, Open3D, EMAN2.99 &middot; 2022–2024</span>
+      <br>
+      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
+      <div class="details">
+        <p>Research assistant at UMass Chan Medical School, Schiffer Lab. Developed and trained convolutional neural networks to automatically segment viral protein components, processing 100+ tomograms and enabling subnanometer structural determination of 12,000+ particles at 8–10 Å resolution. Contributed to a quantitative morphology analysis pipeline using scikit-learn, Open3D, and EMAN2.99.</p>
+        <p class="small">Publication: Q.J. Huang, <strong style="color:#ccc">R. Kim</strong>, K. Song, N. Grigorieff, J.B. Munro, C.A. Schiffer, &amp; M. Somasundaran. <em>Proc. Natl. Acad. Sci. U.S.A.</em> <strong style="color:#ccc">122</strong>(16): e2426427122 (2025). <a href="https://doi.org/10.1073/pnas.2426427122">doi:10.1073/pnas.2426427122</a></p>
+      </div>
+    </div>
+
+    <hr>
     
     <h2>other</h2>
     <p style="text-align: left;">
       email: kim [dot] ryan8 [at] northeastern [dot] edu<br>
       github: <a href="https://github.com/ryanmkim">github.com/ryanmkim</a><br>
-      linkedin: <a href="https://www.linkedin.com/in/ryan-kim-865356324/">linkedin.com/in/ryankim</a>
+      linkedin: <a href="https://www.linkedin.com/in/ryan-kim-865356324/">linkedin.com/in/ryankim</a><br>
+      resume: <a href="rmk_cv.pdf">resume.pdf</a>
     </p>
-    
-    <div class="small">@ 2025 ryan kim</div>
   </div>
+
+  <script>
+    function toggleDetails(el) {
+      const details = el.nextElementSibling;
+      if (details.style.display === "block") {
+        details.style.display = "none";
+        el.textContent = "+ details";
+      } else {
+        details.style.display = "block";
+        el.textContent = "- details";
+      }
+    }
+  </script>
 </body>
 </html>
