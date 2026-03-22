@@ -85,37 +85,58 @@
       font-size: 12px;
       color: #888;
     }
-    .details {
-      display: none;
-      color: #aaa;
-      font-size: 13px;
-      margin-top: 8px;
-      text-align: left;
-    }
-    .details-img {
-      width: 100%;
-      max-width: 400px;
-      margin-top: 10px;
-      border: 1px solid #444;
-      background-color: #333;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #666;
-      font-size: 11px;
-    }
-    .toggle {
+    .learn-more {
       font-size: 12px;
       color: #6699cc;
       cursor: pointer;
-      text-decoration: underline;
-      padding: 5px 0;
-      display: inline-block;
+      text-decoration: none;
     }
-    .toggle:hover {
+    .learn-more:hover {
       color: #99ccff;
+      text-decoration: underline;
     }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+    .back-link {
+      font-size: 12px;
+      color: #6699cc;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .back-link:hover {
+      color: #99ccff;
+      text-decoration: underline;
+    }
+    .project-page-title {
+      font-size: 20px;
+      font-weight: normal;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .project-page-meta {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .project-page-body {
+      text-align: left;
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .project-page-body a {
+      font-size: 13px;
+    }
+    .project-page-body p {
+      margin-bottom: 14px;
+    }
+
     @media (max-width: 480px) {
       .about-section {
         flex-direction: column;
@@ -129,75 +150,136 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>Ryan M. Kim</h1>
+
+    <!-- HOME -->
+    <div id="page-home" class="page active">
+      <div class="header">
+        <h1>Ryan M. Kim</h1>
+      </div>
+      
+      <div class="about-section">
+        <div class="photo"><img src="selfie.png" alt="personal_photo"></div>
+        <div class="about-text">
+          Electrical and Computer Enginering sophmore at Northeastern, '28. Eager to learn more about computer architecture, from applications in biology to silicon. 
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>projects</h2>
+
+      <div class="project">
+        <span class="project-title">RISC-V CPU</span>
+        <span class="small">SystemVerilog, Xilinx Vivado, RISC-V Assembly &middot; 2026</span>
+        <br>
+        <a class="learn-more" onclick="showPage('page-riscv')">[+ learn more]</a>
+      </div>
+
+      <div class="project">
+        <span class="project-title">RNA/DNA to Amino Acid Translation in OpenMP</span>
+        <span class="small">C++, Python, OpenMP &middot; 2025</span>
+        <br>
+        <a class="learn-more" onclick="showPage('page-rna')">[+ learn more]</a>
+      </div>
+
+      <div class="project">
+        <span class="project-title">Image Tiling and Filtering using OpenMP</span>
+        <span class="small">C++, OpenMP &middot; 2022&ndash;2024</span>
+        <br>
+        <a class="learn-more" onclick="showPage('page-tiling')">[+ learn more]</a>
+      </div>
+
+      <div class="project">
+        <span class="project-title">Cryo-ET Influenza Virus Research</span>
+        <span class="small">C++, OpenMP &middot; 2022&ndash;2024</span>
+        <br>
+        <a class="learn-more" onclick="showPage('page-cryoet')">[+ learn more]</a>
+      </div> 
+
+      <hr>
+      
+      <h2>other</h2>
+      <p style="text-align: left;">
+        email: kim [dot] ryan8 [at] northeastern [dot] edu<br>
+        github: <a href="https://github.com/ryanmkim">github.com/ryanmkim</a><br>
+        linkedin: <a href="https://www.linkedin.com/in/ryan-kim-865356324/">linkedin.com/in/ryankim</a><br>
+        resume: <a href="rmk_cv.pdf">resume.pdf</a>
+      </p>
     </div>
-    
-    <div class="about-section">
-      <div class="photo"><img src="selfie.png" alt="personal_photo"></div>
-      <div class="about-text">
-        Electrical and Computer Enginering sophmore at Northeastern, '28. Currently interested in new emerging computer architecture, from applications in biology to machine learning systems. 
+
+    <!-- RISC-V CPU -->
+    <div id="page-riscv" class="page">
+      <a class="back-link" onclick="showPage('page-home')">&larr; back</a>
+      <div class="project-page-title">RISC-V CPU</div>
+      <div class="project-page-meta">SystemVerilog, Xilinx Vivado, RISC-V Assembly &middot; 2026</div>
+      <hr>
+      <div class="project-page-body">
+        <p>Designed and implemented a 16-bit RISC-V single-cycle processor in SystemVerilog, synthesized and tested on a Xilinx PYNQ-Z2 FPGA. The processor supports a subset of the RISC-V instruction set, including arithmetic, logic, memory, and branch operations, with a complete datapath and control unit implemented from scratch.</p>
       </div>
     </div>
 
-    <hr>
-
-    <h2>projects</h2>
-
-    <div class="project">
-      <span class="project-title">Parallel Tiling Image Filters</span>
-      <span class="small">C++, POSIX Threads &middot; 2026</span>
-      <br>
-      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
-      <div class="details">
-        <p>Built a multithreaded image processing tool that splits images into tiles and applies convolution-based filters using a thread pool architecture. Supports grayscaling, thresholding, Gaussian blur, edge detection, and sharpening. Implements thread-safe task scheduling with POSIX mutexes and condition variables.</p>
-        <a href="https://github.com/ryanmkim/pthread_image_processing">github.com/ryanmkim/pthread_image_processing</a>
+    <!-- RNA/DNA Translation -->
+    <div id="page-rna" class="page">
+      <a class="back-link" onclick="showPage('page-home')">&larr; back</a>
+      <div class="project-page-title">RNA/DNA to Amino Acid Translation in OpenMP</div>
+      <div class="project-page-meta">C++, Python, OpenMP &middot; 2025</div>
+      <hr>
+      <div class="project-page-body">
+        <p>Parallelized translation of DNA/RNA sequences to amino acid chains using OpenMP.</p>
+        <p>Each nucleotide is encoded as a 2-bit index (T/U&nbsp;=&nbsp;0, C&nbsp;=&nbsp;1, A&nbsp;=&nbsp;2, G&nbsp;=&nbsp;3) and three-base codons are packed into a 6-bit lookup index into a 64-entry codon table. Translation is parallelized across threads, with each thread translating a chunk of codons. Validated on the SARS-CoV-2 genome (~29,903 bases, ~9,967 codons), with work split across however many cores the machine has. A Python program checks the accuracy of the translated output.</p>
       </div>
     </div>
 
-    <div class="project">
-      <span class="project-title">WM-811K Wafer Defect Analysis Pipeline</span>
-      <span class="small">Python, Pandas, NumPy, SciPy &middot; 2025</span>
-      <br>
-      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
-      <div class="details">
-        <p>Developed a semiconductor defect analysis pipeline to process 172,000 wafer maps across 8 classes, utilizing SciPy for image interpolation and resizing to generate averaged probability heatmaps. Engineered an automated reporting system using Matplotlib and fpdf2 to visualize statistical trends and generate a 20-page defect "field guide."</p>
-        <a href="https://github.com/ryanmkim/wafer_analysis">github.com/ryanmkim/wafer_analysis</a>
+    <!-- Image Tiling -->
+    <div id="page-tiling" class="page">
+      <a class="back-link" onclick="showPage('page-home')">&larr; back</a>
+      <div class="project-page-title">Image Tiling and Filtering using OpenMP</div>
+      <div class="project-page-meta">C++, OpenMP &middot; 2022&ndash;2024</div>
+      <hr>
+      <div class="project-page-body">
+        <p>Splits an image into tiles and applies a filter to each tile in parallel using OpenMP.</p>
+        <p>The input image is divided into a grid of 64&times;64 pixel tiles, and each tile is processed concurrently. Supported filters include grayscale, threshold, sharpen, edge detection, Gaussian blur, and a passthrough (none) option. Uses thread-level parallelism and local memory buffers to avoid race conditions during tile processing and writing.</p>
       </div>
     </div>
 
-    <div class="project">
-      <span class="project-title">Cryo-ET Influenza Virus Research</span>
-      <span class="small">scikit-learn, Open3D, EMAN2.99 &middot; 2022–2024</span>
-      <br>
-      <span class="toggle" onclick="toggleDetails(this)">+ details</span>
-      <div class="details">
-        <p>Research assistant at UMass Chan Medical School, Schiffer Lab. Developed and trained convolutional neural networks to automatically segment viral protein components, processing 100+ tomograms and enabling subnanometer structural determination of 12,000+ particles at 8–10 Å resolution. Contributed to a quantitative morphology analysis pipeline using scikit-learn, Open3D, and EMAN2.99.</p>
-        <p class="small">Publication: Q.J. Huang, <strong style="color:#ccc">R. Kim</strong>, K. Song, N. Grigorieff, J.B. Munro, C.A. Schiffer, &amp; M. Somasundaran. <em>Proc. Natl. Acad. Sci. U.S.A.</em> <strong style="color:#ccc">122</strong>(16): e2426427122 (2025). <a href="https://doi.org/10.1073/pnas.2426427122">doi:10.1073/pnas.2426427122</a></p>
+    <!-- Cryo-ET -->
+    <div id="page-cryoet" class="page">
+      <a class="back-link" onclick="showPage('page-home')">&larr; back</a>
+      <div class="project-page-title">Cryo-ET Influenza Virus Research</div>
+      <div class="project-page-meta">Python, deep learning, cryo-electron tomography &middot; 2022&ndash;2024</div>
+      <hr>
+      <div class="project-page-body">
+        <p>
+          At UMass Chan Medical School in the Schiffer Lab, I worked on a structural biology project focused on how influenza viruses enter host cells. The broader goal was to understand how the organization of proteins on the viral surface changes during the earliest stages of infection, and how these changes can be captured directly from 3D cryo-electron tomography data. This required combining experimental structural biology with computational analysis, since influenza virions are highly variable in shape and their surface proteins are densely packed and difficult to analyze manually at scale.
+        </p>
+
+        <p>
+          My contribution centered on using deep learning to help identify and characterize individual viral protein components within tomograms. I helped train neural networks to recognize key structural features of influenza particles, allowing us to automate parts of the segmentation and particle-identification process that would otherwise be extremely time-consuming by hand. These models made it possible to more systematically detect protein distributions across many virions and to extract quantitative measurements of viral morphology, including how surface proteins were arranged on different particles.
+        </p>
+
+        <p>
+          In addition to the machine learning component, I contributed to the computational workflow used for structural analysis. The output of the neural-network-based detection pipeline fed into downstream morphology measurements and structural determination, helping connect large-scale virion shape analysis with higher-resolution protein-level interpretation. This was especially important for studying hemagglutinin, one of the major influenza surface glycoproteins responsible for receptor binding and entry. By improving the ability to localize and classify these proteins across tomograms, the project supported a more detailed structural picture of how hemagglutinin behaves on intact virus particles.
+        </p>
+
+        <p>
+          A major theme of the work was bridging two different levels of analysis: whole-virion morphology and individual protein structure. Rather than treating influenza as a uniform particle, this approach captured its heterogeneity and used computational methods to measure that variation directly. The result was a pipeline that helped quantify viral architecture while also supporting structural determination of protein assemblies involved in entry. Through this project, I gained experience at the intersection of structural biology, image analysis, and machine learning, and contributed to research aimed at understanding the physical basis of influenza infection.
+        </p>
+
+        <p class="small">
+          Publication: Q.J. Huang, <strong style="color:#ccc">R. Kim</strong>, K. Song, N. Grigorieff, J.B. Munro, C.A. Schiffer, &amp; M. Somasundaran.
+          <em>Proc. Natl. Acad. Sci. U.S.A.</em> <strong style="color:#ccc">122</strong>(16): e2426427122 (2025).
+          <a href="https://doi.org/10.1073/pnas.2426427122">doi:10.1073/pnas.2426427122</a>
+        </p>
       </div>
     </div>
 
-    <hr>
-    
-    <h2>other</h2>
-    <p style="text-align: left;">
-      email: kim [dot] ryan8 [at] northeastern [dot] edu<br>
-      github: <a href="https://github.com/ryanmkim">github.com/ryanmkim</a><br>
-      linkedin: <a href="https://www.linkedin.com/in/ryan-kim-865356324/">linkedin.com/in/ryankim</a><br>
-      resume: <a href="rmk_cv.pdf">resume.pdf</a>
-    </p>
   </div>
 
   <script>
-    function toggleDetails(el) {
-      const details = el.nextElementSibling;
-      if (details.style.display === "block") {
-        details.style.display = "none";
-        el.textContent = "+ details";
-      } else {
-        details.style.display = "block";
-        el.textContent = "- details";
-      }
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
     }
   </script>
 </body>
